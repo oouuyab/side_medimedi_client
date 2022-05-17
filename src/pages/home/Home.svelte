@@ -1,9 +1,11 @@
 <script>
+	const onClick = () => window.location.href = '/#/my'
 </script>
 
 <main>
 	<h1>메디메디</h1>
 	<p>안전한 의약품 사용을 위한<br />간편한 검색</p>
+	<button on:click={onClick}>시작하기</button>
 </main>
 
 <style>
