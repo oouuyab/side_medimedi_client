@@ -45,12 +45,7 @@ export default {
       API_KEY: JSON.stringify(process.env.API_KEY),
       SERVER_HOST: JSON.stringify(process.env.SERVER_HOST),
     }),
-    svelte({
-      compilerOptions: {
-        // enable run-time checks when not in production
-        dev: !production,
-      },
-    }),
+    svelte(require('./svelte.config')),
     // we'll extract any component CSS out into
     // a separate file - better for performance
     css({ output: 'bundle.css' }),

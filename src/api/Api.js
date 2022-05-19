@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const search = async (keyword) =>
-  axios({
+  await axios({
     method: 'GET',
-    url: process.env.SERVER_HOST + `/api/medi/search?keyword=${keyword}`,
+    url: SERVER_HOST + `/medi/search?keyword=${keyword}`,
   });

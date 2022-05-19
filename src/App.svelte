@@ -6,3 +6,9 @@
 <main>
 	<Router {routes} />
 </main>
+
+<style lang='scss'>
+	main {
+		height: 100vh;
+	}
+</style>
