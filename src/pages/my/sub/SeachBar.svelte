@@ -8,8 +8,12 @@
   let promise = Promise.resolve([]);
   $: isOpenResultList = false;
 
-  const closeOpenResultList = () => {
+  const closeResultList = () => {
     isOpenResultList = false;
+    keyword = ''
+
+    document.querySelector('#search-bar-input').value = '';
+    document.querySelector('#search-bar-input').focus();
   }
 
   const onClickChange = (event) => {
@@ -41,14 +45,18 @@
   }
 
   const onClickAddList = (data) => {
-    console.log(list)
+    if (!list.has(data.drugCodeA)) {
+      list.set(data.drugCodeA, data);
+    }
+
+    closeResultList();
   }
 
 </script>
 
 <section class='style'>
   <div class='search-bar'>
-    <input on:keyup={onClickChange} on:keypress={onKeyPressSearch} on:focus={closeOpenResultList} placeholder='약 이름을 입력해주세요'>
+    <input id='search-bar-input' on:keyup={onClickChange} on:keypress={onKeyPressSearch} on:focus={closeResultList} placeholder='약 이름을 입력해주세요'>
     <button on:click={() => promise = handleClick(keyword)} >
       <img alt='search' src='/assets/icon/search.png' />
     </button>
