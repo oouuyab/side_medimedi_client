@@ -2,13 +2,11 @@
   import * as API from '../../api/Api';
   import SearchBar from './sub/SeachBar.svelte'
   import List from './sub/List.svelte'
-
-  $: list = new Map();
 </script>
 
 <article>
-  <SearchBar list={list} />
-  <List list={list} />
+  <SearchBar />
+  <List />
 </article>
 
 <style lang='scss'>

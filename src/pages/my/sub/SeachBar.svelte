@@ -1,8 +1,6 @@
 <script>
   import * as API from '../../../api/Api';
-
-  // * props
-  export let list;
+  import { list } from '../../../store';
 
   let keyword = '';
   let promise = Promise.resolve([]);
@@ -45,8 +43,11 @@
   }
 
   const onClickAddList = (data) => {
-    if (!list.has(data.drugCodeA)) {
-      list.set(data.drugCodeA, data);
+    if (!$list.has(data.drugCodeA)) {
+      list.update(list => {
+        list.set(data.drugCodeA, data);
+        return list;
+      })
     }
 
     closeResultList();
