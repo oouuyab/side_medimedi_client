@@ -1,12 +1,13 @@
 <script>
-  import * as API from '../../api/Api';
   import SearchBar from './sub/SeachBar.svelte'
   import List from './sub/List.svelte'
+  import Button from './sub/Button.svelte';
 </script>
 
 <article>
   <SearchBar />
   <List />
+  <Button />
 </article>
 
 <style lang='scss'>

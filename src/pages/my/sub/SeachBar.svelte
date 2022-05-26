@@ -43,9 +43,9 @@
   }
 
   const onClickAddList = (data) => {
-    if (!$list.has(data.drugCodeA)) {
+    if (!$list.has(data.drugCode)) {
       list.update(list => {
-        list.set(data.drugCodeA, data);
+        list.set(data.drugCode, data);
         return list;
       })
     }
@@ -75,8 +75,8 @@
             style={`border-bottom: ${index !== result.length - 1 ? '1px rgb(77, 83, 99) solid' : ''}`}
             on:click={() => onClickAddList(result)}
             >
-          <p class='name'>{result.drugNameA}</p>
-          <p class='company'>{result.drugCompanyA}</p>
+          <p class='name'>{result.drugName}</p>
+          <p class='company'>{result.drugCompany}</p>
         </div>
       {/each}
     {:else if results.length > 0}

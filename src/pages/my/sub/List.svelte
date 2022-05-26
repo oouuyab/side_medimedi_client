@@ -15,8 +15,8 @@
   {#each [... $list] as drug}
   <div class='drug-el'>
     <div class='drug-info'>
-      <h1>{drug[1].drugNameA}</h1>
-      <h2>{drug[1].drugCompanyA}</h2>
+      <h1>{drug[1].drugName}</h1>
+      <h2>{drug[1].drugCompany}</h2>
     </div>
     <button on:click={() => onClickRemoveList(drug[0])}>X</button>
   </div>
