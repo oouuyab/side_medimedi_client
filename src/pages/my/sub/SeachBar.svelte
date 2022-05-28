@@ -66,15 +66,15 @@
   {#if isOpenResultList}
   {#await promise}
   <!-- pending -->
-  <p>검색중</p>
+  <p class='search-result-list-inprogress'>검색중</p>
   {:then results}
   <ul class='search-result-list'>
     {#if results.length > 0}
       {#each results as result, index}
         <div class='search-result'
-            style={`border-bottom: ${index !== result.length - 1 ? '1px rgb(77, 83, 99) solid' : ''}`}
-            on:click={() => onClickAddList(result)}
-            >
+        style={`border-bottom: ${index !== results.length - 1 ? '1px rgb(77, 83, 99) solid' : ''}`}
+        on:click={() => onClickAddList(result)}
+        >
           <p class='name'>{result.drugName}</p>
           <p class='company'>{result.drugCompany}</p>
         </div>
@@ -94,7 +94,7 @@
     align-items: center;
     margin: 0 auto;
     width: 90%;
-    height: calc(100vh - 32px);
+    // height: calc(100vh - 32px);
     .search-bar {
       width: 90%;
       padding: 0 8px;
@@ -125,16 +125,35 @@
         }
       }
     }
-    .search-result-list {
+    .search-result-list-inprogress {
+      position: absolute;
+      width: 77%;
+      min-height: 24px;
+      max-height: 50%;
       z-index: 65535;
-      width: 95%;
-      padding-bottom: 24px;
       overflow-y: scroll;
-      padding-left: 0;
-      margin-top: 0;
+      padding: 0;
+      margin-top: 67px;
       box-shadow: 0 4px 6px 0 #171717;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
+      background-color: #fff;
+      text-align: center;
+      padding:12px 0;
+    }
+    .search-result-list {
+      position: absolute;
+      width: 77%;
+      min-height: 24px;
+      max-height: 50%;
+      z-index: 65535;
+      overflow-y: scroll;
+      padding: 0;
+      margin-top: 67px;
+      box-shadow: 0 4px 6px 0 #171717;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      background-color: #fff;
       .search-result {
         // width: 100%;
         font-size: 14px;
