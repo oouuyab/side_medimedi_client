@@ -1,11 +1,13 @@
 <script>
   import * as API from '../../../api/api';
-  import * as Util from '../../../util/util';
-  import { list } from '../../../store';
+  import { list, isLoading } from '../../../store';
 
   const onClick = () => {
-    const combinations = Util.getCombinations([... $list]);
-    API.searchDURInfo(combinations);
+    isLoading.update(isLoading => !isLoading);
+    const params = [... $list].map(el => el[1]);
+    API.searchDURInfo(params).then(() => {
+      isLoading.update(isLoading => !isLoading);
+    });
   }
 </script>
 

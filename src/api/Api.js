@@ -6,9 +6,9 @@ export const search = async (keyword) =>
     url: SERVER_HOST + `/medi/search?keyword=${keyword}`,
   });
 
-export const searchDURInfo = async (combinations) =>
+export const searchDURInfo = async (params) =>
   await axios({
     method: 'POST',
     url: SERVER_HOST + `/medi/search/dur`,
-    data: combinations,
+    data: params,
   });
