@@ -27,12 +27,12 @@
   }
 
   const handleClick = (keyword) => {
-    isOpenResultList = true;
     return new Promise(async (resolve, reject) => {
       try {
         if (keyword === '') {
-          return res('약 이름을 입력해주세요')
+          return alert('약 이름을 입력해주세요')
         }
+        isOpenResultList = true;
         const res = await API.search(keyword);
         resolve(res.data);
       } catch (err) {

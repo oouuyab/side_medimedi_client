@@ -44,6 +44,7 @@ export default {
     replace({
       API_KEY: JSON.stringify(process.env.API_KEY),
       SERVER_HOST: JSON.stringify(process.env.SERVER_HOST),
+      preventAssignment: true,
     }),
     svelte(require('./svelte.config')),
     // we'll extract any component CSS out into
