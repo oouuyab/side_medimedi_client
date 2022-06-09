@@ -1,6 +1,7 @@
 <script>
   import * as API from '../../../api/Api';
   import { list } from '../../../store';
+  import ListView from './ListView.svelte';
 
   let keyword = '';
   let promise = Promise.resolve([]);
@@ -34,7 +35,8 @@
         }
         isOpenResultList = true;
         const res = await API.search(keyword);
-        resolve(res.data);
+        const drugList = res.data.map((drug) => [drug.drugCode, drug])
+        resolve(drugList);
       } catch (err) {
         alert(err.stack);
         reject(err.stack);
@@ -68,7 +70,8 @@
   <!-- pending -->
   <p class='search-result-list-inprogress'>검색중</p>
   {:then results}
-  <ul class='search-result-list'>
+  <ListView list={results} onClickAddList={onClickAddList} />
+  <!-- <ul class='search-result-list'>
     {#if results.length > 0}
       {#each results as result, index}
         <div class='search-result'
@@ -82,7 +85,7 @@
     {:else if results.length > 0}
         <div>검색 결과가 없습니다.</div>
     {/if}
-    </ul>
+    </ul> -->
   {/await}
   {/if}
 </section>
@@ -98,7 +101,7 @@
     .search-bar {
       width: 90%;
       padding: 0 8px;
-      margin: 32px auto 0;
+      margin: 12px auto 0;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -125,60 +128,61 @@
         }
       }
     }
-    .search-result-list-inprogress {
-      position: absolute;
-      width: 77%;
-      min-height: 24px;
-      max-height: 50%;
-      z-index: 65535;
-      overflow-y: scroll;
-      padding: 0;
-      margin-top: 67px;
-      box-shadow: 0 4px 6px 0 #171717;
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
-      background-color: #fff;
-      text-align: center;
-      padding:12px 0;
-    }
-    .search-result-list {
-      position: absolute;
-      width: 77%;
-      min-height: 24px;
-      max-height: 50%;
-      z-index: 65535;
-      overflow-y: scroll;
-      padding: 0;
-      margin-top: 67px;
-      box-shadow: 0 4px 6px 0 #171717;
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
-      background-color: #fff;
-      .search-result {
-        // width: 100%;
-        font-size: 14px;
-        margin: 0 8px;
-        margin-bottom: 4px;
-        .name {
-          font-weight: bold;
-          margin-bottom: 4px;
-          word-break: keep-all;
-        }
-        .company {
-          font-size: 12px;
-          color:rgb(77, 83, 99);
-          margin-top: 0px;
-          text-align: right;
-        }
-      }
-    }
-    .search-result-list::-webkit-scrollbar {
-          display: none;
-    }
-    // Hide scrollbar for IE, Edge and Firefox
-    .search-result-list {
-      -ms-overflow-style: none;  // IE and Edge
-      scrollbar-width: none;  // Firefox
-    }
   }
+  //   .search-result-list-inprogress {
+  //     position: absolute;
+  //     width: 77%;
+  //     min-height: 24px;
+  //     max-height: 50%;
+  //     z-index: 65535;
+  //     overflow-y: scroll;
+  //     padding: 0;
+  //     margin-top: 67px;
+  //     box-shadow: 0 4px 6px 0 #171717;
+  //     border-bottom-left-radius: 8px;
+  //     border-bottom-right-radius: 8px;
+  //     background-color: #fff;
+  //     text-align: center;
+  //     padding:12px 0;
+  //   }
+  //   .search-result-list {
+  //     position: absolute;
+  //     width: 77%;
+  //     min-height: 24px;
+  //     max-height: 50%;
+  //     z-index: 65535;
+  //     overflow-y: scroll;
+  //     padding: 0;
+  //     margin-top: 67px;
+  //     box-shadow: 0 4px 6px 0 #171717;
+  //     border-bottom-left-radius: 8px;
+  //     border-bottom-right-radius: 8px;
+  //     background-color: #fff;
+  //     .search-result {
+  //       // width: 100%;
+  //       font-size: 14px;
+  //       margin: 0 8px;
+  //       margin-bottom: 4px;
+  //       .name {
+  //         font-weight: bold;
+  //         margin-bottom: 4px;
+  //         word-break: keep-all;
+  //       }
+  //       .company {
+  //         font-size: 12px;
+  //         color:rgb(77, 83, 99);
+  //         margin-top: 0px;
+  //         text-align: right;
+  //       }
+  //     }
+  //   }
+  //   .search-result-list::-webkit-scrollbar {
+  //         display: none;
+  //   }
+  //   // Hide scrollbar for IE, Edge and Firefox
+  //   .search-result-list {
+  //     -ms-overflow-style: none;  // IE and Edge
+  //     scrollbar-width: none;  // Firefox
+  //   }
+  // }
   </style>
