@@ -1,6 +1,7 @@
 <script>
   import { list } from '../../../store';
   import ListView from './ListView.svelte';
+  export let step;
   const onClickRemoveList = (drugCode) => {
     if ($list.has(drugCode)) {
       list.update(list => {
@@ -12,7 +13,7 @@
 </script>
 
 <section class='style'>
-  <ListView list={[... $list]} onClickAddList={() => {}} onClickRemoveList={onClickRemoveList} />
+  <ListView step={step} list={[... $list]} onClickAddList={() => {}} onClickRemoveList={onClickRemoveList} />
 </section>
 
 <style lang='scss'>

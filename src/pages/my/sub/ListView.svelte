@@ -1,5 +1,7 @@
 <script>
   import _ from 'lodash';
+  import * as Constant from '../../../constant/Constant';
+  export let step;
   export let list;
   export let onClickAddList;
   export let onClickRemoveList;
@@ -21,13 +23,17 @@
         </button>
         {/if}
       </div>
+      {#if step === Constant.STEP.LIST}
         <button on:click={() => onClickRemoveList(drug[0])}>
           <img src='/assets/icon/delete.png' alt='delete-icon' />
         </button>
+      {/if}
       </div>
     {/each}
   {:else}
-    <h1>검색을 통해 약을 추가해주세요!</h1>
+    {#if step === Constant.STEP.LIST}
+      <h1>검색을 통해 약을 추가해주세요!</h1>
+    {/if}
   {/if}
 </section>
 
@@ -40,7 +46,7 @@
     align-items: center;
     width: 85vw;
     overflow-y: scroll;
-    margin: 32px 0 160px;
+    margin: 0 0 160px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     .drug-el {

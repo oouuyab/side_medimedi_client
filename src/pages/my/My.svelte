@@ -6,6 +6,7 @@
   import StatusView from './sub/StatusVeiw.svelte';
   import { isLoading, isSearch } from '../../store';
   import { fly } from 'svelte/transition';
+  import * as Constant from '../../constant/Constant';
 
   const onClickOpenSearch = () => {
     isSearch.update(() => true);
@@ -17,17 +18,19 @@
 </script>
 
 <article>
-  <h1>MediMedi</h1>
-  <StatusView />
-  <div class='search-icon' on:click={onClickOpenSearch}>
-    <img class='icon' src='/assets/icon/search.png' alt='search-icon' />
-  </div>
+  {#if !$isSearch}
+    <h1>MediMedi</h1>
+    <StatusView />
+    <div class='search-icon' on:click={onClickOpenSearch}>
+      <img class='icon' src='/assets/icon/search.png' alt='search-icon' />
+    </div>
+  {/if}
   {#if $isSearch}
     <div class='search' transition:fly={{x: window.innerWidth}}>
       <Search onClickCloseSearch={onClickCloseSearch} />
     </div>
   {:else}
-    <List />
+    <List step={Constant.STEP.LIST}/>
     <Button />
     {/if}
   {#if $isLoading}
