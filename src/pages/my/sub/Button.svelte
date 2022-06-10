@@ -1,13 +1,12 @@
 <script>
   import * as API from '../../../api/api';
-  import { list, isLoading } from '../../../store';
+  import { myList, isLoading } from '../../../store';
 
   const onClick = () => {
     isLoading.update(isLoading => !isLoading);
-    const params = [... $list].map(el => el[1]);
+    const params = [... $myList].map(el => el[1]);
     API.searchDURInfo(params).then((res) => {
       isLoading.update(isLoading => !isLoading);
-      console.log(res.data)
     });
   }
 </script>
@@ -16,8 +15,6 @@
 
 <style lang='scss'>
   button {
-    position: fixed;
-    bottom: 70px;
     width: 80vw;
     height: 42px;
     border-radius: 25px;

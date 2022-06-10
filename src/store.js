@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const list = writable(
+export const myList = writable(
   new Map([
     [
       646900550,

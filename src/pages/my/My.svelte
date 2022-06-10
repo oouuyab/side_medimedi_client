@@ -44,8 +44,8 @@
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
+    padding: 0 0 120px;
     width: 90%;
-    height: calc(100vh - 32px);
     .search-icon {
       position: fixed;
       top: 24px;

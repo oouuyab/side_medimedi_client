@@ -1,7 +1,7 @@
 <script>
   import * as API from '../../../api/Api';
   import * as Constant from '../../../constant/Constant';
-  import { list } from '../../../store';
+  import { myList } from '../../../store';
   import ListView from './ListView.svelte';
 
   export let onClickCloseSearch;
@@ -37,7 +37,7 @@
         }
         isOpenResultList = true;
         const res = await API.search(keyword);
-        const drugList = res.data.map((drug) => [drug.drugCode, drug])
+        const drugList = res.data.map((drug) => [parseInt(drug.drugCode), drug])
         resolve(drugList);
       } catch (err) {
         alert(err.stack);
@@ -47,14 +47,23 @@
   }
 
   const onClickAddList = (data) => {
-    if (!$list.has(data.drugCode)) {
-      list.update(list => {
-        list.set(data.drugCode, data);
+    if (!$myList.has(data[0])) {
+      myList.update(list => {
+        list.set(data[0], data[1]);
         return list;
       })
     }
 
-    closeResultList();
+    // closeResultList();
+  }
+
+  const onClickRemoveList = (drugCode) => {
+    if ($myList.has(drugCode)) {
+      myList.update(list => {
+        list.delete(drugCode);
+        return list
+      })
+    }
   }
 
 </script>
@@ -65,7 +74,10 @@
       <img src='/assets/icon/left-arrow.png' alt='left-arrow-icon' />
     </button>
     <div class='search-bar'>
-      <input id='search-bar-input' on:keyup={onClickChange} on:keypress={onKeyPressSearch} on:focus={closeResultList} placeholder='약 이름을 입력해주세요'>
+      <input id='search-bar-input'
+      on:keyup={onClickChange}
+      on:keypress={onKeyPressSearch}
+      placeholder='약 이름을 입력해주세요'>
       <button on:click={() => promise = handleClick(keyword)} >
         <img alt='search' src='/assets/icon/search.png' />
       </button>
@@ -77,7 +89,7 @@
   <!-- pending -->
   <p class='search-result-list-inprogress'>검색중</p>
   {:then results}
-  <ListView step={Constant.STEP.SEARCH} list={results} onClickAddList={onClickAddList} />
+  <ListView step={Constant.STEP.SEARCH} list={results} onClickAddList={onClickAddList} onClickRemoveList={onClickRemoveList} />
   {/await}
   {/if}
 </section>
