@@ -1,11 +1,11 @@
 <script>
-	import Router from 'svelte-spa-router'
-	import routes from './routes';
+  import Router from 'svelte-spa-router';
+  import routes from './routes';
 </script>
 
 <main>
-	<Router {routes} />
+  <Router {routes} />
 </main>
 
-<style lang='scss'>
+<style lang="scss">
 </style>

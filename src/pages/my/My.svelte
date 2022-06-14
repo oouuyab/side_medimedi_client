@@ -1,44 +1,51 @@
 <script>
-  import List from './sub/List.svelte'
+  import List from './sub/List.svelte';
   import Button from './sub/Button.svelte';
   import LoadingView from './sub/LoadingView.svelte';
   import Search from './sub/Search.svelte';
   import StatusView from './sub/StatusVeiw.svelte';
-  import { isLoading, isSearch } from '../../store';
+  import { isLoading, myList, currentStep } from '../../store';
   import { fly } from 'svelte/transition';
   import * as Constant from '../../constant/Constant';
 
   const onClickOpenSearch = () => {
-    isSearch.update(() => true);
-  }
-
-  const onClickCloseSearch = () => {
-    isSearch.update(() => false);
-  }
+    currentStep.update(() => Constant.STEP.SEARCH);
+  };
+  const onClickGoToMy = () => {
+    currentStep.update(() => Constant.STEP.MY);
+  };
 </script>
 
 <article>
-  {#if !$isSearch}
+  {#if $currentStep === Constant.STEP.MY}
     <h1>MediMedi</h1>
-    <StatusView />
-    <div class='search-icon' on:click={onClickOpenSearch}>
-      <img class='icon' src='/assets/icon/search.png' alt='search-icon' />
+  {:else if $currentStep === Constant.STEP.RESULT}
+    <div class="back-icon" on:click={onClickGoToMy}>
+      <img src="/assets/icon/left-arrow.png" alt="left-arrow-icon" />
     </div>
   {/if}
-  {#if $isSearch}
-    <div class='search' transition:fly={{x: window.innerWidth}}>
-      <Search onClickCloseSearch={onClickCloseSearch} />
-    </div>
-  {:else}
-    <List step={Constant.STEP.LIST}/>
-    <Button />
+  {#if $currentStep !== Constant.STEP.SEARCH}
+    <StatusView />
+    {#if $currentStep === Constant.STEP.MY}
+      <div class="search-icon" on:click={onClickOpenSearch}>
+        <img class="icon" src="/assets/icon/search.png" alt="search-icon" />
+      </div>
     {/if}
+    <List />
+    {#if $currentStep === Constant.STEP.MY && $myList.size !== 0}
+      <Button />
+    {/if}
+  {:else if $currentStep === Constant.STEP.SEARCH}
+    <div class="search" transition:fly={{ x: window.innerWidth }}>
+      <Search />
+    </div>
+  {/if}
   {#if $isLoading}
     <LoadingView />
   {/if}
 </article>
 
-<style lang='scss'>
+<style lang="scss">
   article {
     display: flex;
     flex-direction: column;
@@ -46,8 +53,21 @@
     margin: 0 auto;
     padding: 0 0 120px;
     width: 90%;
+    min-height: calc(100vh - 120px);
+    height: 100%;
+    h1 {
+      margin-bottom: 0;
+    }
+    .back-icon {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      img {
+        width: 18px;
+      }
+    }
     .search-icon {
-      position: fixed;
+      position: absolute;
       top: 24px;
       right: 24px;
       img.icon {
@@ -55,7 +75,7 @@
       }
     }
     .search {
-      position:absolute;
+      position: absolute;
       top: 0;
       left: 0;
     }

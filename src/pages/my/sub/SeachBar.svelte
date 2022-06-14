@@ -9,17 +9,9 @@
   let promise = Promise.resolve([]);
   $: isOpenResultList = false;
 
-  const closeResultList = () => {
-    isOpenResultList = false;
-    keyword = ''
-
-    document.querySelector('#search-bar-input').value = '';
-    document.querySelector('#search-bar-input').focus();
-  }
-
   const onClickChange = (event) => {
     keyword = event.target.value;
-  }
+  };
 
   const onKeyPressSearch = async (event) => {
     if (event.key !== 'Enter') {
@@ -27,74 +19,76 @@
     }
 
     promise = handleClick(keyword);
-  }
+  };
 
   const handleClick = (keyword) => {
     return new Promise(async (resolve, reject) => {
       try {
         if (keyword === '') {
-          return alert('약 이름을 입력해주세요')
+          return alert('약 이름을 입력해주세요');
         }
         isOpenResultList = true;
         const res = await API.search(keyword);
-        const drugList = res.data.map((drug) => [parseInt(drug.drugCode), drug])
+        const drugList = res.data.map((drug) => [
+          parseInt(drug.drugCode),
+          drug,
+        ]);
         resolve(drugList);
       } catch (err) {
         alert(err.stack);
         reject(err.stack);
       }
-    })
-  }
+    });
+  };
 
   const onClickAddList = (data) => {
     if (!$myList.has(data[0])) {
-      myList.update(list => {
+      myList.update((list) => {
         list.set(data[0], data[1]);
         return list;
-      })
+      });
     }
-
-    // closeResultList();
-  }
+  };
 
   const onClickRemoveList = (drugCode) => {
     if ($myList.has(drugCode)) {
-      myList.update(list => {
+      myList.update((list) => {
         list.delete(drugCode);
-        return list
-      })
+        return list;
+      });
     }
-  }
-
+  };
 </script>
 
-<section class='style'>
-  <div class='search-bar-wrp'>
-    <button class='close-search-btn' on:click={onClickCloseSearch}>
-      <img src='/assets/icon/left-arrow.png' alt='left-arrow-icon' />
+<section class="style">
+  <div class="search-bar-wrp">
+    <button class="close-search-btn" on:click={onClickCloseSearch}>
+      <img src="/assets/icon/left-arrow.png" alt="left-arrow-icon" />
     </button>
-    <div class='search-bar'>
-      <input id='search-bar-input'
-      on:keyup={onClickChange}
-      on:keypress={onKeyPressSearch}
-      placeholder='약 이름을 입력해주세요'>
-      <button on:click={() => promise = handleClick(keyword)} >
-        <img alt='search' src='/assets/icon/search.png' />
+    <div class="search-bar">
+      <input
+        id="search-bar-input"
+        on:keyup={onClickChange}
+        on:keypress={onKeyPressSearch}
+        placeholder="약 이름을 입력해주세요"
+      />
+      <button on:click={() => (promise = handleClick(keyword))}>
+        <img alt="search" src="/assets/icon/search.png" />
       </button>
     </div>
   </div>
   <!-- 검색 결과 리스트 -->
   {#if isOpenResultList}
-  {#await promise}
-  <!-- pending -->
-  <p class='search-result-list-inprogress'>검색중</p>
-  {:then results}
-  <ListView step={Constant.STEP.SEARCH} list={results} onClickAddList={onClickAddList} onClickRemoveList={onClickRemoveList} />
-  {/await}
+    {#await promise}
+      <!-- pending -->
+      <p class="search-result-list-inprogress">검색중</p>
+    {:then results}
+      <ListView list={results} {onClickAddList} {onClickRemoveList} />
+    {/await}
   {/if}
 </section>
 
-<style lang='scss'>
+<style lang="scss">
   .style {
     display: flex;
     flex-direction: column;
@@ -103,7 +97,7 @@
     width: 90%;
     // height: calc(100vh - 32px);
     .search-bar-wrp {
-      display:flex;
+      display: flex;
       flex-direction: row;
       // justify-content: ;
       align-items: flex-end;
@@ -132,7 +126,7 @@
         input {
           border: none;
           margin-bottom: 0;
-          width: calc(90% - 20px)
+          width: calc(90% - 20px);
         }
         input:focus {
           outline: none;
@@ -150,6 +144,6 @@
           }
         }
       }
-      }
+    }
   }
 </style>

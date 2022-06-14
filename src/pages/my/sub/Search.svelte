@@ -1,14 +1,18 @@
 <script>
   import SearchBar from './SeachBar.svelte';
+  import { currentStep } from '../../../store';
+  import * as Constant from '../../../constant/Constant';
 
-  export let onClickCloseSearch;
+  const onClickCloseSearch = () => {
+    currentStep.update(() => Constant.STEP.MY);
+  };
 </script>
 
-<article class='search'>
-  <SearchBar onClickCloseSearch={onClickCloseSearch} />
+<article class="search">
+  <SearchBar {onClickCloseSearch} />
 </article>
 
-<style lang='scss'>
+<style lang="scss">
   .search {
     width: 100vw;
     min-height: 100vh;

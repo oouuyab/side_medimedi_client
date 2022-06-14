@@ -1,21 +1,23 @@
 <script>
-  import { myList } from '../../../store';
+  import * as Constant from '../../../constant/Constant';
+  import { myList, resultList, currentStep } from '../../../store';
   import ListView from './ListView.svelte';
-  export let step;
 
   const onClickRemoveList = (drugCode) => {
     if ($myList.has(drugCode)) {
-      myList.update(list => {
+      myList.update((list) => {
         list.delete(drugCode);
-        return list
-      })
+        return list;
+      });
     }
-  }
+  };
 </script>
 
-<section class='style'>
-  <ListView step={step} list={[... $myList]} onClickAddList={() => {}} onClickRemoveList={onClickRemoveList}/>
+<section class="style">
+  {#if $myList.size > 0 || $resultList.length > 0}
+    <ListView onClickAddList={() => {}} {onClickRemoveList} />
+  {/if}
 </section>
 
-<style lang='scss'>
+<style lang="scss">
 </style>
