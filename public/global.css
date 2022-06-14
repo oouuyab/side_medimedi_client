@@ -1,9 +1,13 @@
 html,
 body {
-  max-width: 640px;
+  max-width: 414px;
   position: relative;
+  display: inline-block;
+  margin: 0 auto;
   width: 100%;
   height: 100%;
+  background-color: rgb(235, 235, 235);
+  overflow-y: scroll;
 }
 
 body {

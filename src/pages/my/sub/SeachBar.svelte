@@ -29,10 +29,7 @@
         }
         isOpenResultList = true;
         const res = await API.search(keyword);
-        const drugList = res.data.map((drug) => [
-          parseInt(drug.drugCode),
-          drug,
-        ]);
+        const drugList = res.data.map((drug) => [parseInt(drug.drugCode), drug]);
         resolve(drugList);
       } catch (err) {
         alert(err.stack);
@@ -61,7 +58,7 @@
 </script>
 
 <section class="style">
-  <div class="search-bar-wrp">
+  <div class="search-bar-wrp" style={`width: ${window.innerWidth > 414 ? '414px' : '100vw'}`}>
     <button class="close-search-btn" on:click={onClickCloseSearch}>
       <img src="/assets/icon/left-arrow.png" alt="left-arrow-icon" />
     </button>
@@ -90,18 +87,17 @@
 
 <style lang="scss">
   .style {
+    max-width: 414px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
-    width: 90%;
+    width: 100%;
     // height: calc(100vh - 32px);
     .search-bar-wrp {
       display: flex;
       flex-direction: row;
-      // justify-content: ;
       align-items: flex-end;
-      width: 100vw;
 
       .close-search-btn {
         margin-bottom: 0;

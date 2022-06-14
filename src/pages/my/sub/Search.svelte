@@ -14,7 +14,8 @@
 
 <style lang="scss">
   .search {
-    width: 100vw;
+    max-width: 414px;
+    width: 100%;
     min-height: 100vh;
     height: 100%;
     background-color: #fff;

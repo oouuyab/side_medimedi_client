@@ -1,6 +1,6 @@
 <script></script>
 
-<article>
+<article style={`left: ${window.innerWidth > 414 ? 414 : 0}`}>
   <div>
     <h1>분석중...</h1>
     <h2>병용금기 사항이 있는지 알아보고 있어요</h2>
@@ -12,12 +12,12 @@
 
 <style lang="scss">
   article {
-    position: fixed;
+    position: absolute;
+    top: 0;
     display: flex;
     justify-content: center;
-    top: 0;
-    left: 0;
-    width: 100vw;
+    max-width: 414px;
+    width: 100%;
     height: 100vh;
     background-color: #fff;
     div {
@@ -36,14 +36,14 @@
         margin-bottom: 120px;
       }
       div.img-wrapper {
-        position: fixed;
+        position: asolute;
         bottom: 100px;
         display: flex;
         justify-content: center;
         align-items: flex-end;
         img {
           border-radius: 200px;
-          width: 80vw;
+          width: 80%;
         }
       }
     }

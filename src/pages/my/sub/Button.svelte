@@ -26,7 +26,7 @@
 
 <style lang="scss">
   button {
-    width: 80vw;
+    width: 80%;
     height: 42px;
     border-radius: 25px;
     background-color: #2c73d2;

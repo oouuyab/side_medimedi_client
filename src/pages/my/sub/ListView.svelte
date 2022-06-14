@@ -30,7 +30,8 @@
     {#each list as drug, index}
       <div
         class="drug-el"
-        style={`border-bottom: ${index !== list.length - 1 ? '1px rgb(235, 235, 235) solid' : ''}`}
+        style={`width: ${window.innerWidth > 414 ? 414 * 0.8 : window.innerWidth * 0.8}px;
+        border-bottom: ${index !== list.length - 1 && '1px rgb(235, 235, 235) solid'}`}
         on:click={() => onClickAddOrRemove(drug)}
       >
         <div class="drug-info">
@@ -58,22 +59,20 @@
 
 <style lang="scss">
   .style {
+    max-width: 414px;
     min-height: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 85vw;
     overflow-y: scroll;
-    margin: 0 0 60px;
+    margin: 0 auto 60px;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     .drug-el {
       display: flex;
       flex-direction: row;
-      width: 75vw;
-      margin: 10px 0;
-      padding: 10px;
+      margin: 10px;
       background-color: #fff;
       border-radius: 15px;
       .drug-info {
@@ -83,7 +82,7 @@
         h1 {
           font-size: 14px;
           word-break: keep-all;
-          margin: 6px 12px;
+          margin: 16px 22px 6px;
           color: #343a40;
           line-height: 1.3;
           letter-spacing: 0.3px;
@@ -91,7 +90,7 @@
         h2 {
           font-size: 12px;
           font-weight: 400;
-          margin: 6px 12px 12px;
+          margin: 6px 22px 22px;
           color: #495057;
         }
       }
@@ -99,6 +98,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-right: 10px;
         button {
           background-color: rgba(0, 0, 0, 0);
           border: none;

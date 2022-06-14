@@ -32,11 +32,11 @@
       </div>
     {/if}
     <List />
-    {#if $currentStep === Constant.STEP.MY && $myList.size !== 0}
+    {#if $currentStep === Constant.STEP.MY && $myList.size > 1}
       <Button />
     {/if}
   {:else if $currentStep === Constant.STEP.SEARCH}
-    <div class="search" transition:fly={{ x: window.innerWidth }}>
+    <div class="search" transition:fly={{ x: window.innerWidth > 414 ? 414 : window.innerWidth }}>
       <Search />
     </div>
   {/if}
@@ -47,12 +47,13 @@
 
 <style lang="scss">
   article {
+    max-width: 414px;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
     padding: 0 0 120px;
-    width: 90%;
     min-height: calc(100vh - 120px);
     height: 100%;
     h1 {
