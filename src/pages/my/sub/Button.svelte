@@ -1,5 +1,5 @@
 <script>
-  import * as API from '../../../api/api';
+  import * as API from '../../../api/Api';
   import { LocalStorage } from '../../../common/Storage';
   import * as Constant from '../../../constant/Constant';
   import { myList, isLoading, resultList, currentStep } from '../../../store';
