@@ -1,11 +1,11 @@
 version: 0.0
 os: linux
 files:
-  - source: /dist
-    destination: /home/ec2-user/client
+  - source: /public
+    destination: /home/ec2-user/client/
   - source: /node_modules
     destination: /home/ec2-user/client/node_modules
 hooks:
   AfterInstall:
-    - location: script/after-deploy
+    - location: scripts/after-deploy
       timeout: 180
