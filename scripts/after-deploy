@@ -1,0 +1,2 @@
+#! /bin/bash
+pm2 reload /home/ec2-user/ecosystem_client.config.js
