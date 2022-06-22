@@ -17,31 +17,32 @@
 </script>
 
 <article>
-  {#if $currentStep === Constant.STEP.MY}
-    <h1>MediMedi</h1>
-  {:else if $currentStep === Constant.STEP.RESULT}
-    <div class="back-icon" on:click={onClickGoToMy}>
-      <img src="/assets/icon/left-arrow.png" alt="left-arrow-icon" />
-    </div>
-  {/if}
-  {#if $currentStep !== Constant.STEP.SEARCH}
-    <StatusView />
-    {#if $currentStep === Constant.STEP.MY}
-      <div class="search-icon" on:click={onClickOpenSearch}>
-        <img class="icon" src="/assets/icon/search.png" alt="search-icon" />
-      </div>
-    {/if}
-    <List />
-    {#if $currentStep === Constant.STEP.MY && $myList.size > 1}
-      <Button />
-    {/if}
-  {:else if $currentStep === Constant.STEP.SEARCH}
-    <div class="search" transition:fly={{ x: window.innerWidth > 414 ? 414 : window.innerWidth }}>
-      <Search />
-    </div>
-  {/if}
   {#if $isLoading}
     <LoadingView />
+  {:else}
+    {#if $currentStep === Constant.STEP.MY}
+      <h1>MediMedi</h1>
+    {:else if $currentStep === Constant.STEP.RESULT}
+      <div class="back-icon" on:click={onClickGoToMy}>
+        <img src="/assets/icon/left-arrow.png" alt="left-arrow-icon" />
+      </div>
+    {/if}
+    {#if $currentStep !== Constant.STEP.SEARCH}
+      <StatusView />
+      {#if $currentStep === Constant.STEP.MY}
+        <div class="search-icon" on:click={onClickOpenSearch}>
+          <img class="icon" src="/assets/icon/search.png" alt="search-icon" />
+        </div>
+      {/if}
+      <List />
+      {#if $currentStep === Constant.STEP.MY && $myList.size > 1}
+        <Button />
+      {/if}
+    {:else if $currentStep === Constant.STEP.SEARCH}
+      <div class="search" transition:fly={{ x: window.innerWidth > 414 ? 414 : window.innerWidth }}>
+        <Search />
+      </div>
+    {/if}
   {/if}
 </article>
 
