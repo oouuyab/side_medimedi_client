@@ -2,9 +2,14 @@
   import _ from 'lodash';
   import * as Constant from '../../../constant/Constant';
   import { myList, resultList, currentStep } from '../../../store';
+
+  export let onClickOpenSearch;
 </script>
 
-<article style={`width: ${window.innerWidth > 414 ? 414 * 0.8 : window.innerWidth * 0.8}px`}>
+<article
+  style={`width: ${window.innerWidth > 414 ? 414 * 0.8 : window.innerWidth * 0.8}px`}
+  on:click={$currentStep === Constant.STEP.MY ? onClickOpenSearch : () => {}}
+>
   <div class="wrp">
     {#if $currentStep === Constant.STEP.MY}
       <h1>

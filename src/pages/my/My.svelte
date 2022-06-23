@@ -28,7 +28,7 @@
       </div>
     {/if}
     {#if $currentStep !== Constant.STEP.SEARCH}
-      <StatusView />
+      <StatusView {onClickOpenSearch} />
       {#if $currentStep === Constant.STEP.MY}
         <div class="search-icon" on:click={onClickOpenSearch}>
           <img class="icon" src="/assets/icon/search.png" alt="search-icon" />
